@@ -67,3 +67,24 @@ export async function POST(req: any, res: object) {
     }
   }
 }
+
+export async function GET(req: any, res: any) {
+  await connectDB();
+  try {
+    const allItems = await GroceryItem.find();
+
+    console.log("LOG", allItems);
+
+    if (allItems.length === 0) {
+      return NextResponse.json(
+        { message: "No items in the Inventory" },
+        { status: 200 }
+      );
+    }
+
+    return NextResponse.json(
+      { message: "Fetched all items", data: allItems },
+      { status: 200 }
+    );
+  } catch (error) {}
+}
