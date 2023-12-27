@@ -25,16 +25,24 @@ Follow these steps to set up and run the application locally:
 ### Installation
 
 # Clone the repository
+
 git clone https://github.com/kanandvardhan/grocery-inventory-system.git
 
 # Navigate to the project directory
+
 cd grocery-inventory-system
 
 # Install dependencies
+
 npm install
 
 # Start the application server
+
 npm run dev
+
+# Open the localhost:3000 for the output
+
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 ## Demo
 
