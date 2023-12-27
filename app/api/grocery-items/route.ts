@@ -27,7 +27,7 @@ export async function POST(req: any, res: object) {
       await ifExist.save();
 
       return NextResponse.json(
-        { message: "Item already exists, added quantity" },
+        { status: "success", message: "Item already exists, added quantity" },
         { status: 200 }
       );
     }
@@ -44,7 +44,7 @@ export async function POST(req: any, res: object) {
     }
 
     return NextResponse.json(
-      { message: "Added new item to the inventory" },
+      { status: "success", message: "Added new item to the inventory" },
       { status: 201 }
     );
   } catch (error: any) {
@@ -58,10 +58,13 @@ export async function POST(req: any, res: object) {
         message: (error.errors as any)[field].message,
       }));
 
-      return NextResponse.json({ errors: validationErrors }, { status: 400 });
+      return NextResponse.json({ message: validationErrors }, { status: 400 });
     } else {
       return NextResponse.json(
-        { message: "Something went wrong, did not add item to the inventory" },
+        {
+          status: "error",
+          message: "Something went wrong, did not add item to the inventory",
+        },
         { status: 400 }
       );
     }
@@ -73,18 +76,21 @@ export async function GET(req: any, res: any) {
   try {
     const allItems = await GroceryItem.find();
 
-    console.log("LOG", allItems);
-
     if (allItems.length === 0) {
       return NextResponse.json(
-        { message: "No items in the Inventory" },
+        { status: "success", message: "No items in the Inventory", data: [] },
         { status: 200 }
       );
     }
 
     return NextResponse.json(
-      { message: "Fetched all items", data: allItems },
+      { status: "success", message: "Fetched all items", data: allItems },
       { status: 200 }
     );
-  } catch (error) {}
+  } catch {
+    return NextResponse.json(
+      { status: "error", message: "Something went wrong." },
+      { status: 400 }
+    );
+  }
 }
