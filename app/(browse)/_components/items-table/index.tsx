@@ -69,6 +69,7 @@ export const ItemsTable = () => {
     );
 
     if (existingItems.length > 0) {
+      const reversedItems = existingItems.reverse();
       setStorage(existingItems);
     }
     console.log(existingItems);
