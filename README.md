@@ -15,7 +15,7 @@ A simple web application for managing grocery inventory, built with React and Ne
 
 ## Getting Started
 
-Follow these steps to set up and run the application locally:
+Follow these steps to set up and run the application locally: or open the link where I deployed the webapp https://grocery-inventory-system.vercel.app/
 
 ### Prerequisites
 
