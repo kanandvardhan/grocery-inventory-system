@@ -24,10 +24,15 @@ export async function POST(req: any, res: object) {
     const ifExist = await GroceryItem.findOne({ name });
     if (ifExist) {
       ifExist.quantity += quantity;
+      ifExist.price = price;
+
       await ifExist.save();
 
       return NextResponse.json(
-        { status: "success", message: "Item already exists, added quantity" },
+        {
+          status: "success",
+          message: "Item already exists, updated quantity and price",
+        },
         { status: 200 }
       );
     }
