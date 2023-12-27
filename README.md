@@ -12,7 +12,6 @@ A simple web application for managing grocery inventory, built with React and Ne
 - **Frontend:** React, Next.js
 - **Backend:** Next.js API routes, MongoDB (via Mongoose)
 - **State Management:** React Hooks
-- **HTTP Requests:** Axios
 
 ## Getting Started
 
