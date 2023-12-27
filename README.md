@@ -21,7 +21,6 @@ Follow these steps to set up and run the application locally:
 ### Prerequisites
 
 - Node.js installed on your machine.
-- MongoDB Atlas account for remote MongoDB database.
 
 ### Installation
 
@@ -31,7 +30,7 @@ git clone https://github.com/kanandvardhan/grocery-inventory-system.git
 # Navigate to the project directory
 cd grocery-inventory-system
 
-# Install dependencies for both the frontend and backend
+# Install dependencies
 npm install
 
 # Start the application server
@@ -43,4 +42,4 @@ Watch a demonstration of the application in action: [Demo Video](link-to-your-de
 
 ## Contributors
 
-- kananvardhan (kanandvardhan@gmail.com)
+- kananvardhan (https://github.com/kanandvardhan) (kanandvardhan@gmail.com)
