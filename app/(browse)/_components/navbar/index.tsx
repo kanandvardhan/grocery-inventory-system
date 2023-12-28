@@ -20,7 +20,7 @@ export const Navbar = () => {
     >
       <Logo />
       <div className="flex items-center text-right gap-x-4 hover:opacity-75 transition">
-        <div className="hidden lg:block">
+        <div className="block">
           <p className="text-white text-lg font-semibold">By Sai Anand</p>
           <p className="text-xs text-muted-foreground">
             GitHub:{" "}
