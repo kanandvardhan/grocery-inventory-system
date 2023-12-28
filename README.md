@@ -37,7 +37,7 @@ npm install
 
 # Start the application server
 
-npm run dev
+npm start
 
 # Open the localhost:3000 for the output
 
