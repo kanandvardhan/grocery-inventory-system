@@ -45,7 +45,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 ## Demo
 
-Watch a demonstration of the application in action: [Demo Video](link-to-your-demo-video)
+Watch a demonstration of the application in action: Demo Video - [Google Drive](https://drive.google.com/file/d/1YtYMP3vM8n2f7Rir4U1VcaWfwMyz0O-t/view?usp=sharing) [Clipchamp](https://clipchamp.com/watch/YYMWCh9zw4F?utm_source=share&utm_medium=social&utm_campaign=watch)
 
 ## Contributors
 
