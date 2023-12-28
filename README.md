@@ -49,4 +49,4 @@ Watch a demonstration of the application in action: [Demo Video](link-to-your-de
 
 ## Contributors
 
-- kananvardhan (https://github.com/kanandvardhan) (kanandvardhan@gmail.com)
+- kananvardhan [GitHub](https://github.com/kanandvardhan) [Email](kanandvardhan@gmail.com) [Linkedin](https://www.linkedin.com/in/kanandvardhan/)
