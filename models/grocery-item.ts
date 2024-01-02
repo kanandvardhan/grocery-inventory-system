@@ -6,6 +6,7 @@ const groceryItemSchema = new Schema(
     description: { type: String },
     quantity: { type: Number, required: true },
     price: { type: Number, required: true },
+    category: { type: Schema.Types.ObjectId, ref: "Category", required: true },
   },
   {
     timestamps: true,

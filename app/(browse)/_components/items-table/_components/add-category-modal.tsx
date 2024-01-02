@@ -8,26 +8,21 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { AddItemsForm } from "./add-items-form";
-import { CategoryBody } from "..";
+import { AddCategoryForm } from "./add-category-form";
 
-interface AddItemsModalProps {
-  categories: CategoryBody[];
-}
-
-export const AddItemsModal = ({ categories }: AddItemsModalProps) => {
+export const AddCategoryModal = () => {
   return (
     <Dialog>
       <DialogTrigger>
         <Button size="default" className="ml-auto">
-          Add Item
+          Add Category
         </Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Add new grocery items</DialogTitle>
+          <DialogTitle>Add new Category</DialogTitle>
         </DialogHeader>
-        <AddItemsForm categories={categories} />
+        <AddCategoryForm />
       </DialogContent>
     </Dialog>
   );

@@ -12,6 +12,7 @@ interface ItemsHistoryCardProps {
   description: string;
   price: number;
   quantity: number;
+  category: string;
 }
 
 export const ItemsHistoryCard = ({
@@ -19,11 +20,12 @@ export const ItemsHistoryCard = ({
   name,
   price,
   quantity,
+  category,
 }: ItemsHistoryCardProps) => {
   const [isPending, startTransition] = useTransition();
 
   const postItem = async () => {
-    const values = { description, name, price, quantity };
+    const values = { description, name, price, quantity, category };
     const result = await addItems(values);
 
     if (result.status === "success") {
@@ -54,6 +56,7 @@ export const ItemsHistoryCard = ({
       </div>
       <p>Name: {name}</p>
       <p>Description: {description}</p>
+      <p>Category: {category}</p>
       <p>Price: {price}</p>
       <p>Quantity: {quantity}</p>
     </div>

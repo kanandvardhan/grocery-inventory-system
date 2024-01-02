@@ -11,12 +11,22 @@ import { cn } from "@/lib/utils";
 import { ItemsHistoryCard } from "./_components/items-history-card";
 import { Button } from "@/components/ui/button";
 import { redirect } from "next/navigation";
+import { AddCategoryModal } from "./_components/add-category-modal";
 
 type ItemBody = {
   name: string;
   description: string;
   price: number;
   quantity: number;
+  category: string;
+};
+
+export type CategoryBody = {
+  name: string;
+  discountedPercentage: number;
+  id: string;
+  createdAt: string;
+  updatedAt: string;
 };
 
 export const getItems = async () => {
@@ -33,12 +43,27 @@ export const getItems = async () => {
   }
 };
 
+export const getCategories = async () => {
+  try {
+    const res = await fetch(`/api/categories`, { cache: "no-store" });
+
+    if (!res.ok) {
+      throw new Error("Failed to fetch categories");
+    }
+
+    return res.json();
+  } catch (error: any) {
+    toast.error(error.message);
+  }
+};
+
 export const ItemsTable = () => {
   const [isPending, startTransition] = useTransition();
   const [items, setItems] = useState<GroceryItem[]>([]);
+  const [categories, setCategories] = useState<CategoryBody[]>([]);
   const [storage, setStorage] = useState<ItemBody[]>([]);
 
-  const fetchData = async () => {
+  const fetchItems = async () => {
     const result = await getItems();
 
     if (result.status === "success") {
@@ -46,22 +71,45 @@ export const ItemsTable = () => {
     } else {
       toast.error(result.error);
     }
+    console.log("items", result.data);
     setItems(result.data);
   };
 
+  const fetchCategories = async () => {
+    const result = await getCategories();
+
+    if (result.status === "success") {
+      toast.success(result.message);
+    } else {
+      toast.error(result.error);
+    }
+    console.log("categories", result.data);
+    setCategories(result.data);
+  };
+
   useEffect(() => {
-    startTransition(() => fetchData());
+    startTransition(() => {
+      fetchItems();
+      fetchCategories();
+    });
 
     if (typeof window !== "undefined") {
       historyItems();
     }
   }, []);
 
-  const formattedData = items.map((item: GroceryItem) => ({
-    ...item,
-    createdAt: format(new Date(item.createdAt), "dd/MM/yyyy HH:MM:ss"),
-    updatedAt: format(new Date(item.updatedAt), "dd/MM/yyyy HH:MM:ss"),
-  }));
+  const formattedData = items.map((item: GroceryItem) => {
+    const discountedPrice =
+      item.price -
+      (item.price * (item?.category?.discountedPercentage ?? 100)) / 100;
+
+    return {
+      ...item,
+      createdAt: format(new Date(item.createdAt), "dd/MM/yyyy HH:MM:ss"),
+      updatedAt: format(new Date(item.updatedAt), "dd/MM/yyyy HH:MM:ss"),
+      discountedPrice: discountedPrice.toFixed(2),
+    };
+  });
 
   const historyItems = async () => {
     const existingItems = await JSON.parse(
@@ -82,12 +130,15 @@ export const ItemsTable = () => {
           Grocery Inventory
           <RefreshCw
             onClick={() => {
-              startTransition(() => fetchData());
+              startTransition(() => fetchItems());
             }}
             className={cn("cursor-pointer", isPending && "animate-spin")}
           />
         </h1>
-        <AddItemsModal />
+        <div className="flex gap-4">
+          <AddCategoryModal />
+          <AddItemsModal categories={categories} />
+        </div>
       </div>
       {storage.length > 0 && (
         <div className="h-full w-full p-3 my-5 bg-stone-100">
@@ -112,6 +163,7 @@ export const ItemsTable = () => {
                 description={item.description}
                 price={item.price}
                 quantity={item.quantity}
+                category={item.category}
               />
             ))}
           </div>

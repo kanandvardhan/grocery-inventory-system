@@ -18,10 +18,20 @@ import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { toast } from "sonner";
 import { redirect } from "next/navigation";
+import { CategoryBody } from "..";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+
 type PostBody = {
   name: string;
   description?: string;
   price: number;
+  category: string;
   quantity: number;
 };
 
@@ -45,7 +55,11 @@ export const addItems = async (values: Partial<PostBody>) => {
   }
 };
 
-export const AddItemsForm = () => {
+interface AddItemsFormProps {
+  categories: CategoryBody[];
+}
+
+export const AddItemsForm = ({ categories }: AddItemsFormProps) => {
   const formSchema = z.object({
     name: z.string().min(2, {
       message: "Name must be at least 2 characters.",
@@ -59,6 +73,7 @@ export const AddItemsForm = () => {
     quantity: z.coerce
       .number()
       .min(1, { message: "Quantity must be at least 1." }),
+    category: z.string({ required_error: "Please select a category" }),
   });
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -68,6 +83,7 @@ export const AddItemsForm = () => {
       description: "",
       price: 0,
       quantity: 0,
+      category: "",
     },
   });
 
@@ -80,6 +96,7 @@ export const AddItemsForm = () => {
           localStorage.getItem("grocery-items") || "[]"
         );
         const updatedItems = [...existingItems, values];
+        console.log("localset", updatedItems);
         localStorage.setItem("grocery-items", JSON.stringify(updatedItems));
       }
 
@@ -92,6 +109,7 @@ export const AddItemsForm = () => {
   };
 
   function onSubmit(values: z.infer<typeof formSchema>) {
+    console.log("Submitted values:", values);
     startTransition(() => postItem(values));
   }
 
@@ -128,6 +146,36 @@ export const AddItemsForm = () => {
             </FormItem>
           )}
         />
+
+        <FormField
+          control={form.control}
+          name="category"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Category</FormLabel>
+              <FormControl>
+                <Select
+                  {...field}
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                >
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="Select a Category" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {categories.map((category) => (
+                      <SelectItem key={category.id} value={category.id}>
+                        {category.name}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
         <div className="flex justify-between gap-x-5">
           <FormField
             control={form.control}

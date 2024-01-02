@@ -1,5 +1,5 @@
 import { connectDB } from "@/lib/mongodb";
-import GroceryItem from "@/models/grocery-item";
+import CategoryModel from "@/models/category";
 import { NextRequest, NextResponse } from "next/server";
 
 interface ValidationErrors {
@@ -7,46 +7,35 @@ interface ValidationErrors {
   message: string;
 }
 
-type GroceryItemBody = {
+export type Category = {
   name: string;
-  description?: string;
-  quantity: number;
-  price: number;
-  category: string;
+  discountedPercentage: number;
 };
 
 export async function POST(req: any, res: object) {
   await connectDB();
 
   try {
-    const { name, quantity, price, description, category }: GroceryItemBody =
-      await req.json();
+    const { name, discountedPercentage }: Category = await req.json();
 
-    console.log(name, quantity, price, description, category);
-
-    const ifExist = await GroceryItem.findOne({ name });
+    const ifExist = await CategoryModel.findOne({ name });
     if (ifExist) {
-      ifExist.quantity += quantity;
-      ifExist.price = price;
-      ifExist.category = category;
+      ifExist.discountedPercentage = discountedPercentage;
 
       await ifExist.save();
 
       return NextResponse.json(
         {
           status: "success",
-          message: "Item already exists, updated quantity and price",
+          message: "Category already exists, updated discounted percentage",
         },
         { status: 200 }
       );
     }
 
-    const newItem = await GroceryItem.create({
+    const newItem = await CategoryModel.create({
       name,
-      quantity,
-      price,
-      description,
-      category,
+      discountedPercentage,
     });
 
     if (!newItem) {
@@ -54,7 +43,7 @@ export async function POST(req: any, res: object) {
     }
 
     return NextResponse.json(
-      { status: "success", message: "Added new item to the inventory" },
+      { status: "success", message: "Added new Category to the inventory" },
       { status: 201 }
     );
   } catch (error: any) {
@@ -84,17 +73,25 @@ export async function POST(req: any, res: object) {
 export async function GET(req: any, res: any) {
   await connectDB();
   try {
-    const allItems = await GroceryItem.find().populate("category");
+    const allCategories = await CategoryModel.find();
 
-    if (allItems.length === 0) {
+    if (allCategories.length === 0) {
       return NextResponse.json(
-        { status: "success", message: "No items in the Inventory", data: [] },
+        {
+          status: "success",
+          message: "No categories in the Inventory",
+          data: [],
+        },
         { status: 200 }
       );
     }
 
     return NextResponse.json(
-      { status: "success", message: "Fetched all items", data: allItems },
+      {
+        status: "success",
+        message: "Fetched all categories",
+        data: allCategories,
+      },
       { status: 200 }
     );
   } catch {

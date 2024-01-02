@@ -3,11 +3,13 @@
 import { Button } from "@/components/ui/button";
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown } from "lucide-react";
+import { CategoryBody } from "..";
 
 export type GroceryItem = {
   id: string;
   name: string;
   description: string;
+  category?: CategoryBody | null;
   price: number;
   quanitity: number;
   createdAt: string;
@@ -16,13 +18,25 @@ export type GroceryItem = {
 
 export const columns: ColumnDef<GroceryItem>[] = [
   {
+    accessorKey: "category.name",
+    header: ({ column }) => (
+      <Button
+        variant="ghost"
+        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+      >
+        Category
+        <ArrowUpDown className="ml-2 h-4 w-4" />
+      </Button>
+    ),
+  },
+  {
     accessorKey: "name",
     header: ({ column }) => (
       <Button
         variant="ghost"
         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
       >
-        Name
+        Item Name
         <ArrowUpDown className="ml-2 h-4 w-4" />
       </Button>
     ),
@@ -36,6 +50,18 @@ export const columns: ColumnDef<GroceryItem>[] = [
         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
       >
         Price (₹)
+        <ArrowUpDown className="ml-2 h-4 w-4" />
+      </Button>
+    ),
+  },
+  {
+    accessorKey: "discountedPrice",
+    header: ({ column }) => (
+      <Button
+        variant="ghost"
+        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+      >
+        Discounted Price (₹)
         <ArrowUpDown className="ml-2 h-4 w-4" />
       </Button>
     ),
