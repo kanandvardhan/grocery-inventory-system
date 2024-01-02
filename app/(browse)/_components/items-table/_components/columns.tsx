@@ -18,7 +18,7 @@ export type GroceryItem = {
 
 export const columns: ColumnDef<GroceryItem>[] = [
   {
-    accessorKey: "category.name",
+    accessorKey: "categoryName",
     header: ({ column }) => (
       <Button
         variant="ghost"
@@ -43,6 +43,18 @@ export const columns: ColumnDef<GroceryItem>[] = [
   },
   { accessorKey: "description", header: () => <>Description</> },
   {
+    accessorKey: "quantity",
+    header: ({ column }) => (
+      <Button
+        variant="ghost"
+        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+      >
+        Quantity
+        <ArrowUpDown className="ml-2 h-4 w-4" />
+      </Button>
+    ),
+  },
+  {
     accessorKey: "price",
     header: ({ column }) => (
       <Button
@@ -66,38 +78,15 @@ export const columns: ColumnDef<GroceryItem>[] = [
       </Button>
     ),
   },
+
   {
-    accessorKey: "quantity",
+    accessorKey: "discountedPercentage",
     header: ({ column }) => (
       <Button
         variant="ghost"
         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
       >
-        Quantity
-        <ArrowUpDown className="ml-2 h-4 w-4" />
-      </Button>
-    ),
-  },
-  {
-    accessorKey: "createdAt",
-    header: ({ column }) => (
-      <Button
-        variant="ghost"
-        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-      >
-        Added on
-        <ArrowUpDown className="ml-2 h-4 w-4" />
-      </Button>
-    ),
-  },
-  {
-    accessorKey: "updatedAt",
-    header: ({ column }) => (
-      <Button
-        variant="ghost"
-        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-      >
-        Updated on
+        Discount (%)
         <ArrowUpDown className="ml-2 h-4 w-4" />
       </Button>
     ),

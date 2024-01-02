@@ -3,7 +3,6 @@
 import { DataTable } from "./_components/data-table";
 import { GroceryItem, columns } from "./_components/columns";
 import { AddItemsModal } from "./_components/add-items-modal";
-import { format } from "date-fns";
 import { toast } from "sonner";
 import { useEffect, useState, useTransition } from "react";
 import { RefreshCw } from "lucide-react";
@@ -105,8 +104,8 @@ export const ItemsTable = () => {
 
     return {
       ...item,
-      createdAt: format(new Date(item.createdAt), "dd/MM/yyyy HH:MM:ss"),
-      updatedAt: format(new Date(item.updatedAt), "dd/MM/yyyy HH:MM:ss"),
+      categoryName: item.category?.name,
+      discountedPercentage: item.category?.discountedPercentage,
       discountedPrice: discountedPrice.toFixed(2),
     };
   });

@@ -96,7 +96,6 @@ export const AddItemsForm = ({ categories }: AddItemsFormProps) => {
           localStorage.getItem("grocery-items") || "[]"
         );
         const updatedItems = [...existingItems, values];
-        console.log("localset", updatedItems);
         localStorage.setItem("grocery-items", JSON.stringify(updatedItems));
       }
 
