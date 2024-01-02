@@ -4,7 +4,7 @@ A simple web application for managing grocery inventory, built with React and Ne
 
 ## Features
 
-- **Add Grocery Items:** Easily add new grocery items with their names and quantities to the inventory.
+- **Add Grocery Items:** Easily add new grocery items with their categories with discounted prices, names, prices, quantities to the inventory.
 - **View Inventory:** Retrieve and display a list of all grocery items in the inventory.
 
 ## Technologies Used
