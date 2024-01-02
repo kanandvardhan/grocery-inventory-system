@@ -21,7 +21,7 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.ico" sizes="any" />
       </head>
       <body className={inter.className}>
-        <Toaster theme="dark" position="bottom-left" richColors />
+        <Toaster theme="dark" position="bottom-left" richColors closeButton />
         {children}
       </body>
     </html>
