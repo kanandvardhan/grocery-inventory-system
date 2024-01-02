@@ -70,7 +70,6 @@ export const ItemsTable = () => {
     } else {
       toast.error(result.error);
     }
-    console.log("items", result.data);
     setItems(result.data);
   };
 
@@ -82,7 +81,6 @@ export const ItemsTable = () => {
     } else {
       toast.error(result.error);
     }
-    console.log("categories", result.data);
     setCategories(result.data);
   };
 
@@ -119,7 +117,6 @@ export const ItemsTable = () => {
       const reversedItems = existingItems.reverse();
       setStorage(existingItems);
     }
-    console.log(existingItems);
   };
 
   return (

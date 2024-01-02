@@ -22,8 +22,6 @@ export async function POST(req: any, res: object) {
     const { name, quantity, price, description, category }: GroceryItemBody =
       await req.json();
 
-    console.log(name, quantity, price, description, category);
-
     const ifExist = await GroceryItem.findOne({ name });
     if (ifExist) {
       ifExist.quantity += quantity;

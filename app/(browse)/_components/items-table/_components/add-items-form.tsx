@@ -108,7 +108,6 @@ export const AddItemsForm = ({ categories }: AddItemsFormProps) => {
   };
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log("Submitted values:", values);
     startTransition(() => postItem(values));
   }
 
